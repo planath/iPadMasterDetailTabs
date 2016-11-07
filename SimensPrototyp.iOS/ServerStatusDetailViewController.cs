@@ -17,6 +17,7 @@ namespace SimensPrototyp.iOS
         public ServerStatusDetailViewController(IntPtr handle) : base(handle)
         {
             Title = NSBundle.MainBundle.LocalizedString("Statusdetail", "Master");
+            NavigationController.NavigationBar.BarTintColor = new UIColor(red: 0.00f, green: 0.67f, blue: 0.68f, alpha: 0.7f);
 
             PreferredContentSize = new CGSize(320f, 600f);
             ClearsSelectionOnViewWillAppear = false;

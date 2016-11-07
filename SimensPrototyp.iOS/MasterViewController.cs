@@ -18,7 +18,9 @@ namespace SimensPrototyp.iOS
 
         public MasterViewController(IntPtr handle) : base(handle)
         {
-            Title = NSBundle.MainBundle.LocalizedString("Siemens Sinalyse", "Master");
+            Title = NSBundle.MainBundle.LocalizedString("SIEMENS Sinalyse", "Master");
+            NavigationController.NavigationBar.BarTintColor = new UIColor(red: 0.00f, green: 0.67f, blue: 0.68f, alpha: 0.7f);
+            NavigationController.NavigationBar.TintColor = UIColor.White;
 
             PreferredContentSize = new CGSize(320f, 600f);
             ClearsSelectionOnViewWillAppear = false;
