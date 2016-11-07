@@ -62,8 +62,8 @@ namespace SimensPrototyp.iOS
         public bool CollapseSecondViewController(UISplitViewController splitViewController, UIViewController secondaryViewController, UIViewController primaryViewController)
         {
             if (secondaryViewController.GetType() == typeof(UINavigationController) &&
-                ((UINavigationController)secondaryViewController).TopViewController.GetType() == typeof(DetailViewController) &&
-                ((DetailViewController)((UINavigationController)secondaryViewController).TopViewController).DetailItem == null)
+                ((UINavigationController)secondaryViewController).TopViewController.GetType() == typeof(ServerStatusDetailViewController) &&
+                ((ServerStatusDetailViewController)((UINavigationController)secondaryViewController).TopViewController).DetailItem == null)
             {
                 // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
                 return true;

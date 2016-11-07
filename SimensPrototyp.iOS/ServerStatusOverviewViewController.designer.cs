@@ -8,8 +8,8 @@ using Foundation;
 
 namespace SimensPrototyp.iOS
 {
-    [Register("MasterViewController")]
-    partial class MasterViewController
+    [Register("ServerStatusOverviewViewController")]
+    partial class ServerStatusOverviewViewController
     {
         void ReleaseDesignerOutlets()
         {

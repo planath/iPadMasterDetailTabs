@@ -10,13 +10,12 @@ using SimensPrototype.Core.Repository;
 
 namespace SimensPrototyp.iOS
 {
-    public partial class MasterViewController : UITableViewController
+    public partial class ServerStatusOverviewViewController : UITableViewController
     {
         public ServerStatusDetailViewController DetailViewController { get; set; }
+        protected DataSource dataSource;
 
-        DataSource dataSource;
-
-        public MasterViewController(IntPtr handle) : base(handle)
+        public ServerStatusOverviewViewController(IntPtr handle) : base(handle)
         {
             Title = NSBundle.MainBundle.LocalizedString("SIEMENS Sinalyse", "Master");
             NavigationController.NavigationBar.BarTintColor = new UIColor(red: 0.00f, green: 0.67f, blue: 0.68f, alpha: 0.7f);
@@ -32,10 +31,20 @@ namespace SimensPrototyp.iOS
 
             // Perform any additional setup after loading the view, typically from a nib.
             DetailViewController = (ServerStatusDetailViewController)((UINavigationController)SplitViewController.ViewControllers[1]).TopViewController;
+
             TableView.RowHeight = UITableView.AutomaticDimension;
             TableView.EstimatedRowHeight = 44;
 
             TableView.Source = dataSource = new DataSource(this);
+
+            if (TabBarController.SelectedIndex == 0)
+            {
+                dataSource.Objects = ServerStatusRepository.GetCurrentData();
+            }
+            else if (TabBarController.SelectedIndex == 1)
+            {
+                dataSource.Objects = ServerStatusRepository.GetHistoryData();
+            }
         }
 
         public override void DidReceiveMemoryWarning()
@@ -54,19 +63,22 @@ namespace SimensPrototyp.iOS
             controller.NavigationItem.LeftItemsSupplementBackButton = true;
         }
 
-        class DataSource : UITableViewSource
+        protected class DataSource : UITableViewSource
         {
             static readonly NSString CellIdentifier = new NSString("StatusOverviewCell");
-            readonly MasterViewController controller;
+            readonly ServerStatusOverviewViewController controller;
+            private IList<ServerStatus> _objects;
 
-            public DataSource(MasterViewController controller)
+            public DataSource(ServerStatusOverviewViewController controller)
             {
                 this.controller = controller;
+                Objects = ServerStatusRepository.GetCurrentData();
             }
 
             public IList<ServerStatus> Objects
             {
-                get { return ServerStatusRepository.GetAllData(); }
+                get { return _objects; }
+                set { _objects = value; }
             }
 
             // Customize the number of sections in the table view.
